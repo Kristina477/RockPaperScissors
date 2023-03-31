@@ -1,0 +1,31 @@
+body {
+  background-color: black;
+  color: blanchedalmond;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+div,
+h1 {
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 100px;
+}
+
+img {
+  width: 350px;
+  height: 300px;
+}
+
+button {
+  all: unset;
+}

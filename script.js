@@ -1,63 +1,76 @@
-let hand = ["rock", "paper", "scissors"];
+const hand = ["rock", "paper", "scissors"];
 
-function getComputerChoice () {
-    computerChoice = hand[Math.floor(Math.random() * hand.length)];
-    return computerChoice;
+function getComputerChoice() {
+  return hand[Math.floor(Math.random() * hand.length)];
 }
 
-function getPlayerChoice () {
-    playerChoice = prompt("Rock, paper or scissors?").toLowerCase();
-    return playerChoice;
-}
+const rockBtn = document.getElementById("rock");
+const paperBtn = document.getElementById("paper");
+const scissorsBtn = document.getElementById("scissors");
+let playerChoice;
 
-let score = 0;
+rockBtn.addEventListener("click", () => {
+  playerChoice = rockBtn.value;
+  playGame();
+});
 
-function playRound () {
-    getPlayerChoice();
-    getComputerChoice();
+paperBtn.addEventListener("click", () => {
+  playerChoice = paperBtn.value;
+  playGame();
+});
+
+scissorsBtn.addEventListener("click", () => {
+  playerChoice = scissorsBtn.value;
+  playGame();
+});
+
+let playerScore = 0;
+let computerScore = 0;
+
+const para = document.createElement("div");
+const scoreTag = document.createElement("div");
+const body = document.body;
+
+function playGame() {
+  const computerChoice = getComputerChoice();
+  if (computerScore === 4) {
+    body.innerHTML = "<h2>YOU LOSE!</h2>";
+  } else if (playerScore === 4) {
+    body.innerHTML = "<h2>YOU WIN!</h2>";
+  } else {
     if (playerChoice === "paper") {
-        if (computerChoice === "paper") {
-            console.log("paper vs. paper. It's a tie");
-        } else if (computerChoice === "rock") {
-            console.log("paper vs. rock. You win!");
-            score++;
-        } else if (computerChoice === "scissors") {
-            console.log("paper vs. scissors. You lose!");
-            score--;
-        }
+      if (computerChoice === "paper") {
+        para.innerText = "paper vs. paper. It's a tie";
+      } else if (computerChoice === "rock") {
+        para.innerText = "paper vs. rock. You win this round!";
+        playerScore++;
+      } else if (computerChoice === "scissors") {
+        para.innerText = "paper vs. scissors. You lose this round!";
+        computerScore++;
+      }
     } else if (playerChoice === "rock") {
-        if (computerChoice === "paper") {
-            console.log("rock vs. paper. You lose!");
-            score--;
-        } else if (computerChoice === "rock") {
-            console.log("rock vs. rock. It's a tie");
-        } else if (computerChoice === "scissors") {
-            console.log("rock vs. scissors. You win!");
-            score++;
-        }
+      if (computerChoice === "paper") {
+        para.innerText = "rock vs. paper. You lose this round!";
+        computerScore++;
+      } else if (computerChoice === "rock") {
+        para.innerText = "rock vs. rock. It's a tie";
+      } else if (computerChoice === "scissors") {
+        para.innerText = "rock vs. scissors. You win this round!";
+        playerScore++;
+      }
     } else if (playerChoice === "scissors") {
-        if (computerChoice === "paper") {
-            console.log("scissors vs. paper. You win!");
-            score++;
-        } else if (computerChoice === "rock") {
-            console.log("scissors vs. rock. You lose!");
-            score--;
-        } else if (computerChoice === "scissors") {
-            console.log("scissors vs. scissors. It's a tie");
-        }
-    } else {
-        console.log("Input invalid");
+      if (computerChoice === "paper") {
+        para.innerText = "scissors vs. paper. You win this round!";
+        playerScore++;
+      } else if (computerChoice === "rock") {
+        para.innerText = "scissors vs. rock. You lose this round!";
+        computerScore++;
+      } else if (computerChoice === "scissors") {
+        para.innerText = "scissors vs. scissors. It's a tie";
+      }
     }
-}
-
-for (let i = 1; i < 6; i++) {
-    playRound();
-}
-
-if (score > 0) {
-    console.log("YOU WIN!")
-} else if (score = 0) {
-    console.log("IT'S A TIE!")
-} else {
-    console.log("YOU LOSE!")
+    scoreTag.innerText = `You: ${playerScore} vs. Computer: ${computerScore}`;
+    document.body.appendChild(para);
+    document.body.appendChild(scoreTag);
+  }
 }
